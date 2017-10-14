@@ -1,0 +1,140 @@
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+#: import Image kivy.core.image
+# File name: main1.py
+#:kivy 1.9.1
+
+<CustLabel@Label>:
+    color: 0, 0, 0, 1
+
+<CustLabelA@Label>:
+    color: 0, 0, 0.4, 1
+
+<CustLabelB@Label>:
+    color: 0, 0, 0, 1
+    font_size: 60
+
+<CustTitle@Label>:
+    color: 0.4,0,0,1
+    markup: True
+    bold: True
+
+<Button>:
+    text: "Set"
+    background_color: 0,0.2,0.8,0.6
+
+<ButtonB@Button>:
+    background_color: 0.5,0,0,0.8
+    font_size: 20
+    # size: (40,40)
+    # size_hint: (0.4,0.4)
+    # size_hint_x: 0.4
+    # pos_hint: {'right': 1, 'top': 0}
+
+
+ScreenManagement:
+    transition: FadeTransition()
+    MainScreen:
+    AnotherScreen:
+
+<MainScreen>:
+    name: "main"
+    BoxLayout:
+        orientation: "vertical"
+        # height: 20
+        # width: 30
+
+    #Image Feed
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_x: 1
+            size_hint_y: 1
+            BoxLayout:
+                orientation: 'vertical'
+                CustTitle:
+                    text: 'Image Feed'
+                Image:
+                    source: 'camImg.jpg'
+                    nocache: True
+                    id: camImg_id
+
+            BoxLayout:
+                orientation:'vertical'
+                CustTitle:
+                    text: "Objects Identified"
+                #TODO List of identified objects
+
+
+        BoxLayout:
+            orientation: "horizontal"
+            # size_hint_x: 0.5
+            size_hint_y: 0.3
+
+            Button:
+                text: 'Run'
+                # color: 1,0,0,1
+                on_press: root.starter()
+            ButtonB:
+                text: "Controls Screen"
+                font_size: 20
+                # size_hint: (0.25,0.25)
+                # pos_hint: {'right': 1, 'top': 0}
+                on_release: app.root.current = "other"
+
+
+<AnotherScreen>:
+    name: "other"
+    BoxLayout:
+        orientation: "vertical"
+        # height: 20
+        # width: 30
+
+#Current Sonar Readings
+        BoxLayout:
+            orientation: "vertical"
+            # size_hint_x: .30
+            # size_hint_y: 1
+            CustTitle:
+                text:'Current Sonar Readings'
+            #TODO sonar Readings
+
+        BoxLayout:
+            orientation: "vertical"
+            CustTitle:
+                text: 'Controls for Ebot'
+            # size_hint_x: .30
+            # size_hint_y: 1
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.3
+                BoxLayout:
+                    orientation: 'vertical'
+                    Button:
+                        text: 'Forward'
+                        on_press: root.forward()
+                BoxLayout:
+                    orientation: 'vertical'
+                    Button:
+                        text: 'Backwards'
+                        on_press: root.backwards()
+                BoxLayout:
+                    orientation: 'vertical'
+                    Button:
+                        text: 'Turn Left'
+                        on_press: root.left()
+                BoxLayout:
+                    orientation: 'vertical'
+                    Button:
+                        text: 'Turn Right'
+                        on_press: root.right()
+                BoxLayout:
+                    orientation: 'vertical'
+                    Button:
+                        text: 'Stop'
+                        on_press: root.stop()
+
+        BoxLayout:
+            orientation: "vertical"
+            # size_hint_x: .30
+            ButtonB:
+                text: "Info Screen"
+                on_release: app.root.current = "main"
